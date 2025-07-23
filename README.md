@@ -48,11 +48,11 @@ genai-car-manual-chatbot/
 │ ├── 03_query_examples.ipynb # Sample user questions and responses
 
 
-├── requirements.txt # (Optional) for local/Colab environment setup
+├── requirements.txt 
 
-├── README.md # Project overview and usage
+├── README.md 
 
-└── LICENSE # Optional open-source license
+└── LICENSE 
 
 
 
