@@ -38,89 +38,72 @@ This project is a Retrieval-Augmented Generation (RAG) chatbot designed to answe
 
 ├── README.md
 
-└── requirements.txt
-
-
 ---
 
 ## 🔧 Setup
 
 ### 1. Install Dependencies
 
+| Notebook/Script              | Details |
+|-----------------------------|---------|
+| `00_setup_environment.ipynb` | - Installs required libraries. <br> - Sets up cluster and Unity Catalog paths. |
+| `01_Data_Loading_and_Chunking.ipynb` | - Loads both English & German PDFs using PyPDF2. <br> - Extracts clean text using `.extract_text()`. <br> - Splits the text using `RecursiveCharacterTextSplitter`. <br> - Saves the structured chunks to Unity Catalog as Delta table. |
+| `02_embed_and_store.py` | - Loads saved text chunks. <br> - Embeds using `distiluse-base-multilingual-cased-v2` from HuggingFace. <br> - Stores as FAISS index in Unity Catalog for retrieval. |
+| `03_rag_chain.py` | - Loads the FAISS index from Unity Catalog. <br> - Sets up the OpenAI `gpt-4o-mini` model via LangChain's `ChatOpenAI`. <br> - Wraps both into a `RetrievalQA` chain. <br> - Accepts natural language questions and returns answers + sources. |
 
-📄 Notebook/Script Details
-00_setup_environment.ipynb
-Installs required libraries.
+---
 
-Sets up cluster and Unity Catalog paths.
+## 💬 Sample Questions
 
-01_Data_Loading_and_Chunking.ipynb
-Loads both English & German PDFs using PyPDF2.
+### English:
+- "What is Audi pre sense front and how does it work?"
+- "How do I activate the Audi adaptive cruise control?"
 
-Extracts clean text using .extract_text().
+### German:
+- "Wie funktioniert Audi pre sense front?"
+- "Wie aktiviere ich den adaptiven Tempomaten (Adaptive Cruise Control)?"
 
-Splits the text using RecursiveCharacterTextSplitter.
+---
 
-Saves the structured chunks to Unity Catalog as Delta table.
+## 🧠 Model & Tools Used
 
-02_embed_and_store.py
-Loads saved text chunks.
+| Component        | Details |
+|------------------|---------|
+| **Embedding Model** | `sentence-transformers/distiluse-base-multilingual-cased-v2` (HuggingFace) |
+| **Vector DB**       | FAISS (local, saved in Unity Catalog volume) |
+| **LLM**             | `gpt-4o-mini` via OpenAI |
+| **RAG Framework**   | LangChain |
+| **Chunking**        | `RecursiveCharacterTextSplitter` |
+| **Platform**        | Databricks + Unity Catalog |
 
-Embeds using distiluse-base-multilingual-cased-v2 from HuggingFace.
 
-Stores as FAISS index in Unity Catalog for retrieval.
 
-03_rag_chain.py
-Loads the FAISS index from Unity Catalog.
+## ⚠️ Limitations
 
-Sets up the OpenAI GPT-4o-mini model via LangChain's ChatOpenAI.
+- ❌ **Currently does not extract text from images or diagrams.**
+- 📷 **OCR not integrated yet** — image-based info is not searchable.
+- 🔐 **API key for OpenAI** must be added manually or via Databricks secrets.
 
-Wraps both into a RetrievalQA chain.
+---
 
-Accepts natural language questions and returns answers + sources.
+## 📌 To-Do / Future Improvements
 
-💬 Sample Questions
-English:
+- ✅ Add OCR support for extracting text from image-based diagrams.
+- ✅ Add UI (Streamlit / Gradio).
+- ✅ Extend support to additional languages.
+- ✅ Enable audio/manual video Q&A (long-term).
 
-"What is Audi pre sense front and how does it work?"
+---
 
-"How do I activate the Audi adaptive cruise control?"
+## 📬 Contact
 
-German:
-
-"Wie funktioniert Audi pre sense front?"
-
-"Wie aktiviere ich den adaptiven Tempomaten (Adaptive Cruise Control)?"
-
-🧠 Model & Tools Used
-Component	Details
-Embedding Model	sentence-transformers/distiluse-base-multilingual-cased-v2 (HuggingFace)
-Vector DB	FAISS (local, saved in Unity Catalog volume)
-LLM	gpt-4o-mini via OpenAI
-RAG Framework	LangChain
-Chunking	RecursiveCharacterTextSplitter
-Deployment Platform	Databricks + Unity Catalog
-
-⚠️ Limitations
-❌ Currently does not extract text from images or diagrams.
-
-📷 OCR not integrated yet — image-based info is not searchable.
-
-🔐 API key for OpenAI must be added manually or via secrets.
-
-📌 To-Do / Future Improvements
- Add OCR support for extracting text from image-based diagrams.
-
- Add UI (Streamlit / Gradio).
-
- Extend support to additional languages.
-
- Enable audio/manual video Q&A (long-term).
-
-📬 Contact
 If you have questions or suggestions, feel free to reach out or raise an issue!
 
+---
 
-Would you like me to also generate the `requirements.txt` or a Streamlit frontend starter for the chatbot?
+## ✅ Optional: Extras
 
+Would you like me to also generate:
 
+- `requirements.txt` 📦
+- A **Streamlit frontend starter** 🧩 for the chatbot?
