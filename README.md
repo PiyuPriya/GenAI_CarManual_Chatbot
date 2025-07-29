@@ -7,7 +7,7 @@ This project is a Retrieval-Augmented Generation (RAG) chatbot designed to answe
 ## 🚀 Features
 
 - ✅ Multilingual support (English 🇬🇧 & German 🇩🇪)
-- ✅ Vector search using `sentence-transformers/all-MiniLM-L6-v2`
+- ✅ Vector search using `sentence-transformers/distiluse-base-multilingual-cased-v2`
 - ✅ GPT-4o-mini for answer generation
 - ✅ RAG chain built with LangChain
 - ✅ Powered by Unity Catalog & Delta Lake on Databricks
